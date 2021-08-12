@@ -1,0 +1,10 @@
+[debug] [2021-08-12T10:09:45.524Z] ----------------------------------------------------------------------
+[debug] [2021-08-12T10:09:45.526Z] Command:       /Users/ajonp/.npm-packages/lib/node_modules/node/bin/node /Users/ajonp/.npm-packages/bin/firebase projects:create
+[debug] [2021-08-12T10:09:45.526Z] CLI Version:   9.16.2
+[debug] [2021-08-12T10:09:45.526Z] Platform:      darwin
+[debug] [2021-08-12T10:09:45.526Z] Node Version:  v16.5.0
+[debug] [2021-08-12T10:09:45.527Z] Time:          Thu Aug 12 2021 06:09:45 GMT-0400 (Eastern Daylight Time)
+[debug] [2021-08-12T10:09:45.527Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-08-12T10:09:45.534Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-08-12T10:09:45.534Z] > authorizing via signed-in user (alex@ajonp.com)
