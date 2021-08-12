@@ -19,7 +19,7 @@ const ClientSide = (): JSX.Element => {
 
   return (
     <>
-      <table>
+      <table className="table-auto">
         <thead>
           <tr>
             <th>id</th>
@@ -29,8 +29,11 @@ const ClientSide = (): JSX.Element => {
           </tr>
         </thead>
         <tbody>
-          {data.map((d: any) => (
-            <tr key={d.id}>
+          {data.map((d: any, i: number) => (
+            <tr
+              key={d.id}
+              className={i % 2 === 0 ? 'bg-secondary-300' : 'bg-primary-300'}
+            >
               <td>{d.id}</td>
               <td>{d.type}</td>
               <td>{d.name}</td>
