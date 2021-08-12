@@ -1,16 +1,6 @@
 import Layout from '@/layout/Layout';
 
-import dynamic from 'next/dynamic';
-
-const User = dynamic(() => import('@/components/firebase/User'), {
-  ssr: false,
-});
-
 const Home = (): JSX.Element => {
-  return (
-    <Layout>
-      <User />
-    </Layout>
-  );
+  return <Layout>Welcome to Starter</Layout>;
 };
 export default Home;

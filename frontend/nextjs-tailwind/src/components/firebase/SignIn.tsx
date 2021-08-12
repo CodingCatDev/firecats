@@ -2,7 +2,7 @@ import FirebaseAuth from '@/components/firebase/FirebaseAuth';
 import { useSigninCheck } from 'reactfire';
 import 'firebase/auth';
 
-const User = (): JSX.Element => {
+const SignIn = (): JSX.Element => {
   const { status, data: signInCheckResult } = useSigninCheck();
 
   const checkUser = () => {
@@ -19,4 +19,4 @@ const User = (): JSX.Element => {
   return <>{checkUser()}</>;
 };
 
-export default User;
+export default SignIn;
