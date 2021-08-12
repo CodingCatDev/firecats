@@ -1,0 +1,15 @@
+{
+  "name": "ccd-starter-firebase",
+  "version": "0.0.1",
+  "description": "Firebase for CodingCatDev's Starter",
+  "scripts": {
+    "emulated-debug": "npm run --prefix ./functions build && firebase emulators:start  --inspect-functions --export-on-exit=./backup/data/emulator --import=./backup/data/emulator",
+    "emulated": "npm run --prefix ./functions build && firebase emulators:start --export-on-exit=./backup/data/emulator --import=./backup/data/emulator"
+  },
+  "author": "Alex Patterson",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/CodingCatDev/ccd-starter-nextjs-tailwind-firebase/issues"
+  },
+  "homepage": "https://github.com/CodingCatDev/ccd-starter-nextjs-tailwind-firebase#readme"
+}
