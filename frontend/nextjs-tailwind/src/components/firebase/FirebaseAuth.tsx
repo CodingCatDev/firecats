@@ -40,7 +40,7 @@ const FirebaseAuth = ({ full = true }: { full?: boolean }) => {
     const config = {
       signInFlow: 'popup',
       signInOptions,
-      signInSuccessUrl: '/',
+      signInSuccessUrl: window.location.href,
       credentialHelper: 'none',
       tosUrl: `${window.location.origin}/terms`,
       // Privacy policy url/callback.
