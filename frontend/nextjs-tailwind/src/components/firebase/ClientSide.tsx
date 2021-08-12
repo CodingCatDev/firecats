@@ -1,4 +1,4 @@
-import FirebaseAuth from '@/components/firebase/FirebaseAuth';
+import Link from 'next/link';
 import { useFirestore, useFirestoreCollectionData } from 'reactfire';
 import 'firebase/firestore';
 
@@ -34,7 +34,11 @@ const ClientSide = (): JSX.Element => {
               key={d.id}
               className={i % 2 === 0 ? 'bg-secondary-300' : 'bg-primary-300'}
             >
-              <td>{d.id}</td>
+              <td>
+                <Link href={`static/${d.id}`}>
+                  <a className="underline cursor-pointer">{d.id}</a>
+                </Link>
+              </td>
               <td>{d.type}</td>
               <td>{d.name}</td>
               <td>
