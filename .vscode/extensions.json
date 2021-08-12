@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "csstools.postcss",
-    "chflick.firecode"
+    "chflick.firecode",
+    "esbenp.prettier-vscode"
   ]
 }
