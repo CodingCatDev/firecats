@@ -4,6 +4,11 @@
   "description": "CodingCatDev Next.js Tailwind Firebase Starter",
   "main": " ",
   "scripts": {
+    "clean": "rm -rf frontend/nextjs-tailwind/.next && rm -rf frontend/nextjs-tailwind/out",
+    "static:build": "npm run build --prefix frontend/nextjs-tailwind/ && npm run export --prefix frontend/nextjs-tailwind/",
+    "static:move": "mv frontend/nextjs-tailwind/out backend/firebase/public",
+    "firebase:hosting": "npm run deploy --prefix backend/firebase",
+    "deploy": "npm run clean && npm run static:build && npm run static:move && firebase:hosting",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
