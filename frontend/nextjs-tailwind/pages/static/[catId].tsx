@@ -1,12 +1,15 @@
 import Layout from '@/layout/Layout';
 import { Cat } from '@/models/cat.model';
-import dynamic from 'next/dynamic';
-
+import CatCard from '@/components/CatCard';
 // Serverside only
 import { catById, getCats } from '@/services/serversideApi';
 
 const Cats = ({ cat }: { cat: Cat }): JSX.Element => {
-  return <Layout>{JSON.stringify(cat)}</Layout>;
+  return (
+    <Layout>
+      <CatCard cat={cat} />
+    </Layout>
+  );
 };
 export default Cats;
 

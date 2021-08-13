@@ -1,4 +1,4 @@
-import FirebaseAuth from '@/components/firebase/FirebaseAuth';
+import FirebaseAuth from '@/components/FirebaseAuth';
 import { useSigninCheck, useUser } from 'reactfire';
 import 'firebase/auth';
 
