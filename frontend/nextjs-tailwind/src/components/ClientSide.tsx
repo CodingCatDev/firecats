@@ -6,7 +6,9 @@ const ClientSide = (): JSX.Element => {
   // Access to Firestore Library
   const catsRef = useFirestore().collection('cats');
 
-  const { data } = useFirestoreCollectionData(catsRef, { idField: 'id' });
+  const { data, status } = useFirestoreCollectionData(catsRef, {
+    idField: 'id',
+  });
 
   // easily check the loading status
   if (status === 'loading') {
