@@ -11,7 +11,7 @@ const SignIn = (): JSX.Element => {
       return <>Loading...</>;
     }
 
-    if (signInCheckResult.signedIn === true) {
+    if (signInCheckResult.signedIn === true && user) {
       return (
         <div className="flex flex-col">
           <p>

@@ -1,7 +1,7 @@
 import Layout from '@/layout/Layout';
 import dynamic from 'next/dynamic';
 
-const User = dynamic(() => import('@/components/firebase/SignIn'), {
+const User = dynamic(() => import('@/components/SignIn'), {
   ssr: false,
 });
 
