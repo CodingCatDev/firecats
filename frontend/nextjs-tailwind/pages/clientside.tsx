@@ -1,4 +1,3 @@
-import Layout from '@/layout/Layout';
 import dynamic from 'next/dynamic';
 
 const ClientSide = dynamic(() => import('@/components/ClientSide'), {
@@ -6,10 +5,6 @@ const ClientSide = dynamic(() => import('@/components/ClientSide'), {
 });
 
 const Home = (): JSX.Element => {
-  return (
-    <Layout>
-      <ClientSide />
-    </Layout>
-  );
+  return <ClientSide />;
 };
 export default Home;

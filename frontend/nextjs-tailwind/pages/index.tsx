@@ -1,6 +1,4 @@
-import Layout from '@/layout/Layout';
-
 const Home = (): JSX.Element => {
-  return <Layout>Welcome to Starter</Layout>;
+  return <>Welcome to Starter</>;
 };
 export default Home;

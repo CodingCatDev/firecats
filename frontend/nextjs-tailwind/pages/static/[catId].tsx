@@ -1,15 +1,10 @@
-import Layout from '@/layout/Layout';
 import { Cat } from '@/models/cat.model';
 import CatCard from '@/components/CatCard';
 // Serverside only
 import { catById, getCats } from '@/services/serversideApi';
 
 const Cats = ({ cat }: { cat: Cat }): JSX.Element => {
-  return (
-    <Layout>
-      <CatCard cat={cat} />
-    </Layout>
-  );
+  return <CatCard cat={cat} />;
 };
 export default Cats;
 
