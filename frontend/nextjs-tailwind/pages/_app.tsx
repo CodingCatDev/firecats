@@ -2,16 +2,20 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Layout from '@/layout/Layout';
 
-import { FirebaseAppProvider } from 'reactfire';
-import { config } from '@/config/firebase';
+import {
+  FirebaseProvider,
+  FirebaseAuthProvider,
+} from '@/components/firebase/wrappers';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <FirebaseAppProvider firebaseConfig={config}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </FirebaseAppProvider>
+    <FirebaseProvider>
+      <FirebaseAuthProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </FirebaseAuthProvider>
+    </FirebaseProvider>
   );
 }
 export default MyApp;

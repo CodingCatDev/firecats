@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import { useFirestore, useFirestoreCollectionData } from 'reactfire';
-import 'firebase/firestore';
+import { collection } from 'firebase/firestore';
 
 const ClientSide = (): JSX.Element => {
   // Access to Firestore Library
-  const catsRef = useFirestore().collection('cats');
+  const firestore = useFirestore();
+  const catsRef = collection(firestore, 'cats');
 
   const { data, status } = useFirestoreCollectionData(catsRef, {
     idField: 'id',

@@ -1,5 +1,5 @@
-import FirebaseAuth from '@/components/FirebaseAuth';
 import { useSigninCheck, useUser } from 'reactfire';
+import SignInForm from './SignInForm';
 
 const SignIn = (): JSX.Element => {
   const { status, data: signInCheckResult } = useSigninCheck();
@@ -20,7 +20,7 @@ const SignIn = (): JSX.Element => {
         </div>
       );
     } else {
-      return <FirebaseAuth />;
+      return <SignInForm />;
     }
   };
   return <>{checkUser()}</>;
