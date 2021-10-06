@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import firebaseApp from 'firebase/app';
-import { useEffect } from 'react';
+// Firebase
 import { config } from '@/config/firebase';
 import { useFirebaseApp } from 'reactfire';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import firebaseApp from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 
 const FirebaseAuth = ({ full = true }: { full?: boolean }) => {
   const app = useFirebaseApp();
+  const auth = getAuth(app);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firebaseAuthConfig, setFirebaseAuthConfig] =

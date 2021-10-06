@@ -1,6 +1,5 @@
 import FirebaseAuth from '@/components/FirebaseAuth';
 import { useSigninCheck, useUser } from 'reactfire';
-import 'firebase/auth';
 
 const SignIn = (): JSX.Element => {
   const { status, data: signInCheckResult } = useSigninCheck();

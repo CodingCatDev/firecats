@@ -1,10 +1,10 @@
 import dynamic from 'next/dynamic';
-
-const User = dynamic(() => import('@/components/SignIn'), {
-  ssr: false,
-});
+import SignIn from '@/components/SignIn';
+// const User = dynamic(() => import('@/components/SignIn'), {
+//   ssr: false,
+// });
 
 const Home = (): JSX.Element => {
-  return <User />;
+  return <SignIn />;
 };
 export default Home;

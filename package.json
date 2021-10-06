@@ -27,10 +27,5 @@
   "bugs": {
     "url": "https://github.com/CodingCatDev/ccd-starter-nextjs-tailwind-firebase/issues"
   },
-  "homepage": "https://github.com/CodingCatDev/ccd-starter-nextjs-tailwind-firebase#readme",
-  "dependencies": {
-    "firebase": "^9.1.1",
-    "firebase-admin": "^9.12.0",
-    "reactfire": "^4.2.0"
-  }
+  "homepage": "https://github.com/CodingCatDev/ccd-starter-nextjs-tailwind-firebase#readme"
 }
