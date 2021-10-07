@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "analyze": "ANALYZE=true next build",
     "dev": "next dev",
     "build": "next build",
     "export": "next export",
@@ -19,6 +20,7 @@
     "reactfire": "^3.0.0-rc.3"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^11.1.2",
     "@types/react": "17.0.17",
     "autoprefixer": "^10.3.1",
     "eslint": "7.32.0",
