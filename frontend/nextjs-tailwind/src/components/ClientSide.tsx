@@ -41,12 +41,12 @@ const ClientSide = (): JSX.Element => {
                   <a className="underline cursor-pointer">{d.id}</a>
                 </Link>
               </td>
-              <td>{d.type}</td>
-              <td>{d.name}</td>
+              <td>{d?.type}</td>
+              <td>{d?.name}</td>
               <td>
                 <table>
                   <tbody>
-                    {d.colors.map((c: any) => (
+                    {d?.colors?.map((c: any) => (
                       <tr key={`${d.id}-${c}`}>
                         <td>{c}</td>
                       </tr>
