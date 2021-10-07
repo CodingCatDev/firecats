@@ -23,12 +23,12 @@ const SignInForm = (): JSX.Element => {
         <div className="bg-gray-300 ">
           <div className="container flex items-center justify-center h-screen">
             <div className="max-w-6xl p-8 pb-10 bg-white rounded-lg">
-              <div className="flex justify-center mb-4">Example Login</div>
+              <div className="flex justify-center mb-2">Example Login</div>
               <button
-                className="w-full h-12 mt-3 text-white uppercase rounded bg-secondary-800 hover:bg-secondary-900"
+                className="w-full h-12 px-2 text-center text-white rounded bg-primary-800 hover:bg-primary-500"
                 onClick={() => googleSignIn()}
               >
-                <i className="mr-2 fa fa-google"></i>Google
+                Google Signin
               </button>
             </div>
           </div>
