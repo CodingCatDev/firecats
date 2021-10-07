@@ -1,5 +1,7 @@
-import SignIn from '@/components/SignIn';
-
+import dynamic from 'next/dynamic';
+const SignIn = dynamic<any>(() => import('@/components/SignIn'), {
+  ssr: false,
+});
 const Home = (): JSX.Element => {
   return <SignIn />;
 };
