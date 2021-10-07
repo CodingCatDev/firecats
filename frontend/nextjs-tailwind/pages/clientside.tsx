@@ -1,10 +1,11 @@
-import dynamic from 'next/dynamic';
+import { FirebaseFirestoreProvider } from '@/components/firebase/wrappers';
+import ClientSide from '@/components/ClientSide';
 
-const ClientSide = dynamic(() => import('@/components/ClientSide'), {
-  ssr: false,
-});
-
-const Home = (): JSX.Element => {
-  return <ClientSide />;
+const ClientSidePage = (): JSX.Element => {
+  return (
+    <FirebaseFirestoreProvider>
+      <ClientSide />
+    </FirebaseFirestoreProvider>
+  );
 };
-export default Home;
+export default ClientSidePage;
