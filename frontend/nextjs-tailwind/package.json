@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "analyze": "ANALYZE=true next build",
     "dev": "next dev",
     "build": "next build",
     "export": "next export",
@@ -18,6 +19,7 @@
     "reactfire": "^4.2.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^11.1.2",
     "@types/react": "17.0.26",
     "autoprefixer": "^10.3.6",
     "cross-env": "^7.0.3",
