@@ -5,6 +5,8 @@
   "scripts": {
     "analyze": "ANALYZE=true next build",
     "dev": "next dev",
+    "emulate:firebase": "npm run --prefix ./../../backend/firebase/ emulated",
+    "emulate:next": "cross-env NODE_OPTIONS='--inspect=9230' FIRESTORE_EMULATOR_HOST='localhost:8080' NEXT_PUBLIC_FB_AUTH_HOST='http://localhost:9099' NEXT_PUBLIC_FB_DB_HOST='localhost:9000' NEXT_PUBLIC_FB_FS_HOST='localhost:8080' NEXT_PUBLIC_CS_HOST='localhost:9199' NEXT_PUBLIC_FB_FN_HOST='localhost:5001' next dev",
     "build": "next build",
     "export": "next export",
     "start": "next start",
