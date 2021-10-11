@@ -3,7 +3,7 @@ import { useFirestore, useFirestoreDocData } from 'reactfire';
 import { FirebaseFirestoreProvider } from '@/components/firebase/wrappers';
 import { doc } from '@firebase/firestore';
 
-const InnerCatCard = ({ servercat }: { servercat: Cat }): JSX.Element => {
+const CatCard = ({ servercat }: { servercat: Cat }): JSX.Element => {
   const firestore = useFirestore();
   const catsRef = doc(firestore, `cats/${servercat.id}`);
 
@@ -52,14 +52,6 @@ const InnerCatCard = ({ servercat }: { servercat: Cat }): JSX.Element => {
         )}
       </div>
     </>
-  );
-};
-
-const CatCard = ({ cat }: { cat: Cat }): JSX.Element => {
-  return (
-    <FirebaseFirestoreProvider>
-      <InnerCatCard servercat={cat} />
-    </FirebaseFirestoreProvider>
   );
 };
 

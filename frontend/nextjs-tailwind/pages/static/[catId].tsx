@@ -4,7 +4,7 @@ import CatCard from '@/components/CatCard';
 import { catById, getCats } from '@/services/serversideApi';
 
 const Cats = ({ cat }: { cat: Cat }): JSX.Element => {
-  return <CatCard cat={cat} />;
+  return <CatCard servercat={cat} />;
 };
 export default Cats;
 

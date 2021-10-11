@@ -24,13 +24,25 @@ const FirebaseAuthProvider = dynamic<any>(
   }
 );
 
+const FirebaseFirestoreProvider = dynamic<any>(
+  () =>
+    import('@/components/firebase/wrappers').then(
+      (mod) => mod.FirebaseFirestoreProvider
+    ),
+  {
+    ssr: false,
+  }
+);
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <FirebaseProvider>
       <FirebaseAuthProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <FirebaseFirestoreProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </FirebaseFirestoreProvider>
       </FirebaseAuthProvider>
     </FirebaseProvider>
   );
