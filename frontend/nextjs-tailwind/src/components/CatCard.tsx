@@ -1,6 +1,17 @@
 import { Cat } from '@/models/cat.model';
+import { useFirestore, useFirestoreDocData } from 'reactfire';
+import { FirebaseFirestoreProvider } from '@/components/firebase/wrappers';
+import { doc } from '@firebase/firestore';
 
-const CatCard = ({ cat }: { cat: Cat }): JSX.Element => {
+const InnerCatCard = ({ servercat }: { servercat: Cat }): JSX.Element => {
+  const firestore = useFirestore();
+  const catsRef = doc(firestore, `cats/${servercat.id}`);
+
+  const { data: cat, status } = useFirestoreDocData(catsRef, {
+    idField: 'id',
+    initialData: servercat,
+  });
+
   const getColor = (color: string) => {
     const o: { backgroundColor: string; color?: string } = {
       backgroundColor: color,
@@ -10,6 +21,7 @@ const CatCard = ({ cat }: { cat: Cat }): JSX.Element => {
     }
     return o;
   };
+  console.log(cat);
   return (
     <>
       <div className="p-2 rounded bg-primary-500 text-basics-50">
@@ -22,7 +34,7 @@ const CatCard = ({ cat }: { cat: Cat }): JSX.Element => {
                 <p className="text-xl text-center">Colors</p>
                 <hr className="mb-1"></hr>
                 <ul className="grid max-w-md grid-flow-col p-2 m-auto rounded bg-secondary-500 justify-items-center">
-                  {cat?.colors?.map((color) => (
+                  {cat?.colors?.map((color: any) => (
                     <li
                       key={color}
                       className="p-1 rounded bg-secondary-400"
@@ -40,6 +52,14 @@ const CatCard = ({ cat }: { cat: Cat }): JSX.Element => {
         )}
       </div>
     </>
+  );
+};
+
+const CatCard = ({ cat }: { cat: Cat }): JSX.Element => {
+  return (
+    <FirebaseFirestoreProvider>
+      <InnerCatCard servercat={cat} />
+    </FirebaseFirestoreProvider>
   );
 };
 

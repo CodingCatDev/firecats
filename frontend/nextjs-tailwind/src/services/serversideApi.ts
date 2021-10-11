@@ -17,7 +17,7 @@ export async function getCats(): Promise<Cat[]> {
 export async function catById(id: string): Promise<Cat | null> {
   const doc = await admin.firestore().doc(`cats/${id}`).get();
   if (doc.exists) {
-    return doc.data() as unknown as Cat;
+    return { id: doc.id, ...doc.data() } as unknown as Cat;
   } else {
     return null;
   }
