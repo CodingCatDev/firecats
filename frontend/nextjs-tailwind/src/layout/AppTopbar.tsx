@@ -1,7 +1,7 @@
 import NavLinks from '@/layout/NavLinks';
 import dynamic from 'next/dynamic';
 
-const UserMenu = dynamic(() => import('@/components/UserMenu'), {
+const UserMenu = dynamic(() => import('@/components/global/UserMenu'), {
   ssr: false,
 });
 export const AppTopbar = (): JSX.Element => {
