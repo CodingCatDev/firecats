@@ -1,10 +1,13 @@
 import Link from 'next/link';
-import { useFirestore, useFirestoreCollectionData } from 'reactfire';
+import { useFirestore, useFirestoreCollectionData, useUser } from 'reactfire';
 import { collection } from 'firebase/firestore';
+
+import CatFormInput from '@/components/CatFormInput';
 
 const ClientSide = (): JSX.Element => {
   // Access to Firestore Library
   const firestore = useFirestore();
+  const { data: user } = useUser();
   const catsRef = collection(firestore, 'cats');
 
   const { data, status } = useFirestoreCollectionData(catsRef, {
@@ -21,13 +24,13 @@ const ClientSide = (): JSX.Element => {
   }
 
   return (
-    <div className="p-6">
+    <div className="flex flex-wrap p-6">
+      {user && <CatFormInput user={user} />}
       <table className="w-full table-auto">
         <thead>
           <tr>
-            <th className="text-left">id</th>
-            <th className="text-left">type</th>
             <th className="text-left">name</th>
+            <th className="text-left">type</th>
             <th className="text-left">colors</th>
           </tr>
         </thead>
@@ -39,11 +42,10 @@ const ClientSide = (): JSX.Element => {
             >
               <td>
                 <Link href={`static/${d.id}`}>
-                  <a className="underline cursor-pointer">{d.id}</a>
+                  <a className="underline cursor-pointer">{d.name}</a>
                 </Link>
               </td>
               <td>{d?.type}</td>
-              <td>{d?.name}</td>
               <td>
                 <table>
                   <tbody>
