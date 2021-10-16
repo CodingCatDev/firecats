@@ -24,7 +24,7 @@ const CatCard = ({ servercat }: { servercat: Cat }): JSX.Element => {
   console.log(cat);
   return (
     <>
-      <div className="p-2 rounded bg-primary-500 text-basics-50">
+      <div className="p-2 m-4 rounded bg-primary-500 text-basics-50">
         {cat.name ? (
           <>
             <h2>Name: {cat?.name}</h2>

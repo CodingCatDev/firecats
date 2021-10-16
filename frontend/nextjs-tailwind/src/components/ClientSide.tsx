@@ -21,21 +21,21 @@ const ClientSide = (): JSX.Element => {
   }
 
   return (
-    <>
-      <table className="table-auto">
+    <div className="p-6">
+      <table className="w-full table-auto">
         <thead>
           <tr>
-            <th>id</th>
-            <th>type</th>
-            <th>name</th>
-            <th>colors</th>
+            <th className="text-left">id</th>
+            <th className="text-left">type</th>
+            <th className="text-left">name</th>
+            <th className="text-left">colors</th>
           </tr>
         </thead>
         <tbody>
           {data.map((d: any, i: number) => (
             <tr
               key={d.id}
-              className={i % 2 === 0 ? 'bg-secondary-300' : 'bg-primary-300'}
+              className={i % 2 === 0 ? 'bg-secondary-200' : 'bg-primary-200'}
             >
               <td>
                 <Link href={`static/${d.id}`}>
@@ -59,7 +59,7 @@ const ClientSide = (): JSX.Element => {
           ))}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import { useAuth, useUser } from 'reactfire';
 import 'firebase/auth';
-import useOutsideClick from '@/components/hooks/useOutsideClick';
+import useOutsideClick from '@/hooks/useOutsideClick';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import Link from 'next/link';
@@ -20,7 +20,7 @@ const UserMenu = (): JSX.Element => {
       {user ? (
         <>
           <div
-            className="cursor-pointer w-8 h-8 relative"
+            className="relative w-8 h-8 cursor-pointer"
             onClick={() => setShow(!show)}
           >
             {user.photoURL ? (
@@ -38,7 +38,7 @@ const UserMenu = (): JSX.Element => {
             )}
             {show && (
               <div
-                className="absolute flex flex-col rounded-xl p-1 right-0 border bg-basics-50 text-basics-900 min-w-max"
+                className="absolute right-0 flex flex-col p-1 border rounded-xl bg-basics-50 text-basics-900 min-w-max"
                 ref={ref}
               >
                 {user && <div>{user.displayName}</div>}
