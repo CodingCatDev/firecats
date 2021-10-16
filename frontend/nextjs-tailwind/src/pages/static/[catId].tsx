@@ -44,6 +44,10 @@ export async function getStaticProps({
   | { notFound: boolean }
 > {
   const cat = await catById(params.catId);
+  if (cat?.createdAt) {
+    cat.createdDate = cat.createdAt.toDate().toDateString();
+    delete cat.createdAt;
+  }
   if (!cat) {
     return {
       notFound: true,
