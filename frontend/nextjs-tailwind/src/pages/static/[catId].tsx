@@ -53,6 +53,7 @@ export async function getStaticProps({
       notFound: true,
     };
   }
+  console.log('Static Data', cat);
 
   return {
     props: {
