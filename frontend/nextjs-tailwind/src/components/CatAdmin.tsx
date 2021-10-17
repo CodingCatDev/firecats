@@ -110,9 +110,9 @@ const ClientSide = (): JSX.Element => {
               </td>
               <td>{d?.type}</td>
               <td>
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap max-w-lg">
                   {d?.colors?.map((c: string, i: number) => (
-                    <div className="mx-1" key={`${i}-${c}`}>
+                    <div className="m-1" key={`${i}-${c}`}>
                       <CatColor color={c} />
                     </div>
                   ))}

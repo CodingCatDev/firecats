@@ -57,9 +57,7 @@ export default function CatForm({
       createdAt: Timestamp.now(),
       createdBy: user.uid,
     });
-
-    reset({ name, type, colors });
-
+    reset({ name: '', type: '', colors: [] });
     toast.success('Cat Added successfully!');
   };
 

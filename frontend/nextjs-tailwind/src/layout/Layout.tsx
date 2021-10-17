@@ -34,7 +34,7 @@ const site: Site = {
 const Layout = ({ children }: { children: any }): JSX.Element => {
   return (
     <>
-      <section className="mb-10">
+      <section className="">
         <AppTopbar />
       </section>
       <div className="grid grid-cols-1 justify-items-center calc-height-wrapper lg:mx-auto lg:w-80 lg:max-w-8xl lg:justify-items-stretch">
@@ -42,7 +42,7 @@ const Layout = ({ children }: { children: any }): JSX.Element => {
           {children}
         </main>
 
-        <section className="mt-10">
+        <section className="">
           <Footer site={site} />
         </section>
       </div>
