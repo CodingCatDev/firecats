@@ -10,14 +10,14 @@ const FirebaseFirestoreProvider = dynamic<any>(
   }
 );
 
-const ClientSide = dynamic<any>(() => import('@/components/ClientSide'), {
+const CatAdmin = dynamic<any>(() => import('@/components/CatAdmin'), {
   ssr: false,
 });
 
 const ClientSidePage = (): JSX.Element => {
   return (
     <FirebaseFirestoreProvider>
-      <ClientSide />
+      <CatAdmin />
     </FirebaseFirestoreProvider>
   );
 };
