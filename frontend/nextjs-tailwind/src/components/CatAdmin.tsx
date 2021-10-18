@@ -8,11 +8,12 @@ import {
   orderBy,
   query,
 } from 'firebase/firestore';
-
+import usePaginatedCollection from '@/hooks/usePaginatedCollection';
 import CatFormInput from '@/components/CatFormInput';
 import { Cat } from '@/models/cat.model';
 import CatColor from './CatColor';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import DeleteConfirmDialog from '@/components/global/DeleteConfirmDialog';
 
 const ClientSide = (): JSX.Element => {
   // Access to Firestore Library
@@ -21,16 +22,56 @@ const ClientSide = (): JSX.Element => {
   const catsRef = collection(firestore, 'cats') as CollectionReference<Cat>;
   const [cat, setCat] = useState<Cat | null>(null);
 
-  const { data: cats, status } = useFirestoreCollectionData<Cat>(
-    query<Cat>(catsRef, orderBy('name', 'asc')),
-    {
-      idField: 'id',
-    }
-  );
+  const {
+    status,
+    data: snapshot,
+    prevDisabled,
+    nextDisabled,
+    prev,
+    next,
+    cursor,
+    update,
+    limit,
+    loading,
+    page,
+  } = usePaginatedCollection({
+    query: query<Cat>(catsRef),
+    limit: 10,
+    orderBy: { field: 'name', direction: 'asc' },
+  });
 
-  const onDelete = async (id: string) => {
-    await deleteDoc(doc(firestore, 'cats', id));
+  const [cats, setCats] = useState<Cat[] | undefined>();
+
+  useEffect(() => {
+    setCats(
+      snapshot?.docs?.map((d) => {
+        return {
+          ...d.data(),
+          id: d.id,
+        };
+      })
+    );
+  }, [snapshot]);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
+  const [deleteText, setDeleteText] = useState('');
+  const [deleteCat, setDeleteCat] = useState<Cat>();
+  const onDelete = async (cat: Cat) => {
+    if (!cat || !cat.id) {
+      return;
+    }
+    setIsOpen(true);
+    setIsDeleted(false);
+    setDeleteText(`Cat Name: ${cat.name}, of type: ${cat.type}`);
+    setDeleteCat(cat);
   };
+
+  useEffect(() => {
+    if (isDeleted && deleteCat && deleteCat.id) {
+      deleteDoc(doc(firestore, 'cats', deleteCat.id));
+    }
+  }, [deleteCat, firestore, isDeleted]);
 
   // easily check the loading status
   if (status === 'loading') {
@@ -42,31 +83,56 @@ const ClientSide = (): JSX.Element => {
   }
 
   return (
-    <div className="flex flex-wrap p-6">
-      {user && !cat && <CatFormInput user={user} />}
-      {user && cat && <CatFormInput user={user} cat={cat} setCat={setCat} />}
-      <table className="w-full table-auto">
-        <thead>
-          <tr>
-            <th className="p-2 text-left">name</th>
-            <th className="text-left">type</th>
-            <th className="text-left">colors</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cats.map((d: any, i: number) => (
-            <tr
-              key={d.id}
-              className={i % 2 === 0 ? 'bg-secondary-200' : 'bg-primary-200'}
-            >
-              <td>
-                <div className="flex justify-between p-2">
-                  <Link href={`static/${d.id}`}>
-                    <a className="flex justify-between ">
-                      <div className="underline cursor-pointer">{d.name}</div>
-                    </a>
-                  </Link>
-                  <div className="flex flex-wrap">
+    <>
+      <DeleteConfirmDialog
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        setIsDeleted={setIsDeleted}
+        text={deleteText}
+      />
+      <div className="flex flex-wrap p-6">
+        {user && !cat && <CatFormInput user={user} />}
+        {user && cat && <CatFormInput user={user} cat={cat} setCat={setCat} />}
+        <table className="w-full mt-4 table-auto">
+          <thead>
+            <tr className="bg-secondary-300">
+              <th className="p-2 text-left uppercase">name</th>
+              <th className="text-left uppercase">type</th>
+              <th className="text-left uppercase">colors</th>
+              <th className="text-left uppercase"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {cats.map((d: any, i: number) => (
+              <tr
+                key={d.id}
+                className={
+                  i % 2 === 0
+                    ? 'bg-primary-400 text-white'
+                    : 'bg-primary-500 text-white'
+                }
+              >
+                <td>
+                  <div className="flex justify-between p-2">
+                    <Link href={`static/${d.id}`}>
+                      <a className="flex justify-between ">
+                        <div className="underline cursor-pointer">{d.name}</div>
+                      </a>
+                    </Link>
+                  </div>
+                </td>
+                <td>{d?.type}</td>
+                <td>
+                  <div className="flex flex-wrap max-w-lg">
+                    {d?.colors?.map((c: string, i: number) => (
+                      <div className="m-1" key={`${i}-${c}`}>
+                        <CatColor color={c} />
+                      </div>
+                    ))}
+                  </div>
+                </td>
+                <td>
+                  <div className="flex">
                     <button
                       onClick={() => setCat(d)}
                       className="mx-1 bg-white rounded text-primary-500 hover:bg-secondary-900 hover:text-white"
@@ -87,7 +153,7 @@ const ClientSide = (): JSX.Element => {
                       </svg>
                     </button>
                     <button
-                      onClick={() => onDelete(d.id)}
+                      onClick={() => onDelete(d)}
                       className="mx-1 bg-white rounded text-primary-500 hover:bg-error-900 hover:text-white"
                     >
                       <svg
@@ -106,23 +172,13 @@ const ClientSide = (): JSX.Element => {
                       </svg>
                     </button>
                   </div>
-                </div>
-              </td>
-              <td>{d?.type}</td>
-              <td>
-                <div className="flex flex-wrap max-w-lg">
-                  {d?.colors?.map((c: string, i: number) => (
-                    <div className="m-1" key={`${i}-${c}`}>
-                      <CatColor color={c} />
-                    </div>
-                  ))}
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 

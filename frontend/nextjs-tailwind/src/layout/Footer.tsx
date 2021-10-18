@@ -24,7 +24,9 @@ import {
   TailwindColorGroup,
   TailwindConfig,
 } from 'tailwindcss/tailwind-config';
-const fullConfig = resolveConfig(tailwindConfig as MyConfig) as MyConfig;
+const fullConfig = resolveConfig(
+  tailwindConfig as unknown as MyConfig
+) as MyConfig;
 
 export default function Footer({
   site,

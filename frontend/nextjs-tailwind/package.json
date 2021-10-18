@@ -13,11 +13,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.4.1",
     "@tailwindcss/forms": "^0.3.4",
     "firebase": "^9.1.1",
     "firebase-admin": "^9.12.0",
     "firebaseui": "^0.600.0",
+    "install": "^0.13.0",
     "next": "11.1.2",
+    "npm": "^8.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.17.4",
