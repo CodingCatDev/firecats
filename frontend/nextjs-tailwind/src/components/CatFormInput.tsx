@@ -2,7 +2,15 @@ import { useForm, useWatch } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 
 import { UserInfo } from 'firebase/auth';
-import { addDoc, collection, doc, setDoc, Timestamp } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  DocumentData,
+  Query,
+  setDoc,
+  Timestamp,
+} from 'firebase/firestore';
 import { useFirestore } from 'reactfire';
 import { colors } from '@/utils/css';
 import { Cat } from '@/models/cat.model';
@@ -11,10 +19,14 @@ export default function CatForm({
   user,
   cat,
   setCat,
+  update,
+  q,
 }: {
   user: UserInfo;
   cat?: Cat;
   setCat?: Dispatch<SetStateAction<Cat | null>>;
+  update: ((query?: Query<DocumentData> | undefined) => void) | undefined;
+  q: Query<Cat>;
 }) {
   const {
     register,
@@ -57,6 +69,7 @@ export default function CatForm({
       createdAt: Timestamp.now(),
       createdBy: user.uid,
     });
+    if (update) update(q);
     reset({ name: '', type: '', colors: [] });
     toast.success('Cat Added successfully!');
   };

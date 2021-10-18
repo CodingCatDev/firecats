@@ -59,6 +59,7 @@ const usePaginatedCollection = <T = DocumentData>(
   const update = (newQuery?: Query<T>) => {
     if (newQuery) {
       setQuery(query(newQuery, order, limit(options.limit)));
+      setCursor(0);
       return;
     }
     setQuery(query(options.query, order, limit(options.limit)));

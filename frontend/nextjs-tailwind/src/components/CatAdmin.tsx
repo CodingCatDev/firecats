@@ -21,7 +21,7 @@ const ClientSide = (): JSX.Element => {
   const { data: user } = useUser();
   const catsRef = collection(firestore, 'cats') as CollectionReference<Cat>;
   const [cat, setCat] = useState<Cat | null>(null);
-
+  const q = query<Cat>(catsRef);
   const {
     status,
     data: snapshot,
@@ -35,7 +35,7 @@ const ClientSide = (): JSX.Element => {
     loading,
     page,
   } = usePaginatedCollection({
-    query: query<Cat>(catsRef),
+    query: q,
     limit: 10,
     orderBy: { field: 'name', direction: 'asc' },
   });
@@ -56,7 +56,7 @@ const ClientSide = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
   const [deleteText, setDeleteText] = useState('');
-  const [deleteCat, setDeleteCat] = useState<Cat>();
+  const [deleteCat, setDeleteCat] = useState<Cat | null>(null);
   const onDelete = async (cat: Cat) => {
     if (!cat || !cat.id) {
       return;
@@ -70,6 +70,8 @@ const ClientSide = (): JSX.Element => {
   useEffect(() => {
     if (isDeleted && deleteCat && deleteCat.id) {
       deleteDoc(doc(firestore, 'cats', deleteCat.id));
+      if (update) update(q);
+      setDeleteCat(null);
     }
   }, [deleteCat, firestore, isDeleted]);
 
@@ -91,15 +93,42 @@ const ClientSide = (): JSX.Element => {
         text={deleteText}
       />
       <div className="flex flex-wrap p-6">
-        {user && !cat && <CatFormInput user={user} />}
-        {user && cat && <CatFormInput user={user} cat={cat} setCat={setCat} />}
+        {user && !cat && <CatFormInput user={user} update={update} q={q} />}
+        {user && cat && (
+          <CatFormInput
+            user={user}
+            cat={cat}
+            setCat={setCat}
+            update={update}
+            q={q}
+          />
+        )}
         <table className="w-full mt-4 table-auto">
           <thead>
             <tr className="bg-secondary-300">
               <th className="p-2 text-left uppercase">name</th>
               <th className="text-left uppercase">type</th>
               <th className="text-left uppercase">colors</th>
-              <th className="text-left uppercase"></th>
+              <th className="text-left uppercase">
+                <section className="flex self-end pt-2 pb-1 align-middle">
+                  {!prevDisabled && prev && (
+                    <button
+                      className="p-1 mr-1 bg-white rounded text-primary-900 hover:bg-primary-900 hover:text-white"
+                      onClick={prev}
+                    >
+                      Prev
+                    </button>
+                  )}
+                  {!nextDisabled && next && (
+                    <button
+                      className="p-1 ml-1 bg-white rounded text-primary-900 hover:bg-primary-900 hover:text-white"
+                      onClick={next}
+                    >
+                      Next
+                    </button>
+                  )}
+                </section>
+              </th>
             </tr>
           </thead>
           <tbody>
