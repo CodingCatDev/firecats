@@ -23,9 +23,9 @@ const CatCard = ({ servercat }: { servercat: Cat }): JSX.Element => {
               <>
                 <p className="text-xl text-center">Colors</p>
                 <hr className="mb-1"></hr>
-                <ul className="grid max-w-md grid-flow-col p-2 m-auto rounded bg-secondary-500 justify-items-center">
+                <ul className="flex flex-wrap max-w-lg p-2 m-auto rounded bg-secondary-500 justify-items-center">
                   {cat?.colors?.map((color: any) => (
-                    <li key={color}>
+                    <li key={color} className="m-1">
                       <CatColor color={color} />
                     </li>
                   ))}

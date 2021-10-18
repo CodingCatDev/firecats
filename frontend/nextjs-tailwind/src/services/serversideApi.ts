@@ -22,3 +22,45 @@ export async function catById(id: string): Promise<Cat | null> {
     return null;
   }
 }
+
+/* Admin */
+export async function validateAdminUser(idToken: string): Promise<boolean> {
+  const userRecord = await getCookieUser(idToken);
+
+  if (!userRecord || !userRecord.uid) {
+    return false;
+  }
+  if (!(await isUserTeam(userRecord.uid))) {
+    return false;
+  }
+  return true;
+}
+export async function getCookieUser(
+  idToken: string
+): Promise<admin.auth.UserRecord | null> {
+  //Verify Token
+  const decodedToken = admin.auth().verifyIdToken(idToken);
+
+  if (!decodedToken) {
+    return Promise.resolve(null);
+  }
+
+  return await admin.auth().getUser((await decodedToken).uid);
+}
+export async function isUserTeam(uid: string): Promise<boolean> {
+  if (!uid) {
+    return Promise.resolve(false);
+  }
+  const userRef = await admin.firestore().doc(`users/${uid}`).get();
+
+  const userData = userRef.data() as { uid: string; roles: string[] };
+  if (
+    userData &&
+    userData.roles &&
+    userData.roles.some((r) => ['admin'].indexOf(r) >= 0)
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}

@@ -12,6 +12,13 @@ import {
   FirebaseAppProvider,
 } from 'reactfire';
 import { config, emulation } from '@/config/firebase';
+import {
+  getUserFromCookie,
+  removeUserCookie,
+  setUserCookie,
+} from '@/utils/auth/userCookies';
+import { onIdTokenChanged, getIdToken } from 'firebase/auth';
+import { useEffect } from 'react';
 interface FirestoreExt extends Firestore {
   _settings: FirestoreSettings;
 }
@@ -34,6 +41,25 @@ export const FirebaseAuthProvider = ({
   if (emulation.authEmulatorHost && !auth.emulatorConfig) {
     connectAuthEmulator(auth, emulation.authEmulatorHost);
   }
+
+  useEffect(() => {
+    const cancelAuthListener = onIdTokenChanged(auth, async (user) => {
+      if (user) {
+        const userFromCookie = getUserFromCookie();
+        const token = await getIdToken(user);
+        if (!userFromCookie || token !== userFromCookie.token) {
+          setUserCookie({ token });
+        }
+      } else {
+        removeUserCookie();
+      }
+    });
+
+    return () => {
+      cancelAuthListener();
+    };
+  }, [auth]);
+
   return <AuthProvider sdk={auth}>{children}</AuthProvider>;
 };
 
