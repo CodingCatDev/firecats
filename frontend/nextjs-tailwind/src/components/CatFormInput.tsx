@@ -83,6 +83,7 @@ export default function CatForm({
     type: string;
     colors: [string];
   }) => {
+    console.log(cat);
     if (!cat || !cat.id) {
       toast.success('Cat Missing, look in the trees!');
       return;
@@ -106,7 +107,7 @@ export default function CatForm({
   return (
     <>
       <form
-        onSubmit={handleSubmit(cat ? updateCat : addCat)}
+        onSubmit={handleSubmit(cat ? (updateCat as any) : (addCat as any))}
         className="flex justify-between w-full"
       >
         <div className="flex flex-wrap space-x-2">

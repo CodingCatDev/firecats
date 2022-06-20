@@ -1,0 +1,6 @@
+{
+  "hosting": {
+    "source": ".",
+    "cleanUrls": true
+  }
+}

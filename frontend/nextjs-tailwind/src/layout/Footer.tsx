@@ -8,7 +8,7 @@ import YouTube from '@/components/global/icons/socials/YouTube';
 import Link from 'next/link';
 import { Site, SocialLink, SocialType } from '@/models/site.model';
 
-interface MyColors extends TailwindColorConfig {
+interface MyColors extends TailwindValuesColor {
   readonly primary: TailwindColorGroup;
   readonly secondary: TailwindColorGroup;
 }
@@ -20,9 +20,9 @@ interface MyConfig extends TailwindConfig {
 import resolveConfig from 'tailwindcss/resolveConfig';
 import tailwindConfig from '../../tailwind.config';
 import {
-  TailwindColorConfig,
   TailwindColorGroup,
   TailwindConfig,
+  TailwindValuesColor,
 } from 'tailwindcss/tailwind-config';
 const fullConfig = resolveConfig(
   tailwindConfig as unknown as MyConfig

@@ -1,6 +1,6 @@
 import { useAuth, useUser } from 'reactfire';
 import 'firebase/auth';
-import useOutsideClick from '@/hooks/useOutsideClick';
+import { useOnClickOutside } from 'usehooks-ts';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import Link from 'next/link';
@@ -11,9 +11,10 @@ const UserMenu = (): JSX.Element => {
   const [show, setShow] = useState(false);
   const ref = useRef<any>();
 
-  useOutsideClick(ref, () => {
+  const handleClickOutside = () => {
     if (show) setShow(false);
-  });
+  };
+  useOnClickOutside(ref, handleClickOutside);
 
   return (
     <div className="flex">
