@@ -5,7 +5,7 @@ import { Site, SocialType } from '@/models/site.model';
 // This could come from Firebase
 const site: Site = {
   id: 'ccd-starter-nextjs-tailwind-firebase',
-  title: 'Reactive Cats',
+  title: 'Fire Cats',
   slogan: 'A catty firebase example',
   pageLinks: [
     { slug: '/', title: 'Home' },
